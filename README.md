@@ -8,4 +8,4 @@ git clone https://github.com/aaamet/Kelimax
 cd Kelimax/
 python3 start.py
 ```
-Even though this project has only been tested on Linux, It should work on any machine that has Python 3 installed.
+**Note**: Even though this project has only been tested on Linux, It should work on any machine that has Python 3 installed.
