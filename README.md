@@ -6,6 +6,6 @@ It takes any character and outputs every possible combination with those charact
 ```
 git clone https://github.com/aaamet/Kelimax
 cd Kelimax/
-sh ./start.sh
+python3 start.py
 ```
 It should work on any machine that has Python 3 installed.
