@@ -104,8 +104,10 @@ def start_generator():
 
     print(" Processing...")
 
+
+
     if data["p_bar"] == True:
-        for i in tqdm(range(100), desc=" Progress"):
+        for i in tqdm(range(1), desc=" Progress"):
             for n in range(min_length, max_length+1):
                 for xs in itertools.product(characters, repeat=n):
                     output_file.write(''.join(map(str, xs)) + "\n")
