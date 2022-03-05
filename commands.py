@@ -13,12 +13,12 @@ banner_text = """
 |  ██   ▀██▄  ██▄    ▄  ██   ██   ██    ██    ██ ██   ██   ▄█▀ ▀█▄  |
 |▄████▄   ███▄ ▀█████▀▄████▄████▄████  ████  ████▄████▀██▄██▄   ▄██▄|
 ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"""
-copyright_text = "Kelimax Copyright (C) 2022 aaamet"
+current_v = "v1.2.1"
+copyright_text = "Kelimax " + current_v + " Copyright (C) 2022 aaamet"
 opt_1 = "1 - Start The Generator - 1"
 opt_2 = "2 - Settings - 2"
 opt_3 = "3 - About - 3"
 opt_4 = "4 - Check For Update - 4"
-current_v = "v1.1.1"
 url = "https://raw.githubusercontent.com/aaamet/version-list/main/kelimax.json"
 
 def terminal_clear():
