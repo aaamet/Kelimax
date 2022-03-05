@@ -1,4 +1,4 @@
-import time, os, shutil, textwrap, itertools, json
+import time, os, shutil, textwrap, itertools, json, requests
 from tqdm import tqdm
 
 banner_text = """
@@ -17,6 +17,9 @@ copyright_text = "Kelimax Copyright (C) 2022 aaamet"
 opt_1 = "1 - Start The Generator - 1"
 opt_2 = "2 - Settings - 2"
 opt_3 = "3 - About - 3"
+opt_4 = "4 - Check For Update - 4"
+current_v = "v1.1.1"
+url = "https://raw.githubusercontent.com/aaamet/version-list/main/kelimax.json"
 
 def terminal_clear():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -69,21 +72,22 @@ def options():
     print(opt_1.center(shutil.get_terminal_size().columns))
     print(opt_2.center(shutil.get_terminal_size().columns))
     print(opt_3.center(shutil.get_terminal_size().columns))
+    print(opt_4.center(shutil.get_terminal_size().columns))
 
 def tell_about():
     os.system('cls' if os.name == 'nt' else 'clear')
     print("")
-    print("Kelimax Copyright (C) 2022 aaamet")
+    print(" Kelimax "" Copyright (C) 2022 aaamet")
     print("")
-    print("Kelimax is a word list generator that outputs a list of")
-    print("combinations with the given characters.")
+    print(" Kelimax is a word list generator that outputs a list of")
+    print(" combinations with the given characters.")
     print("")
-    print("It takes three inputs from the user; characters that will")
-    print("be used, minimum and maximum length of the combinations.")
+    print(" It takes three inputs from the user; characters that will")
+    print(" be used, minimum and maximum length of the combinations.")
     print("")
-    print("This program is licenced under the terms of GNU General")
-    print("Public Licence v3.0. A copy of the licence can be found")
-    print("in the LICENCE file.")
+    print(" This program is licenced under the terms of GNU General")
+    print(" Public Licence v3.0. A copy of the licence can be found")
+    print(" in the LICENCE file.")
     print("")
 
 def center_wrap(banner_text_1, cwidth=80, **kw):
@@ -170,10 +174,7 @@ def settings():
                     json.dump(data, settings)
                 settings.close()
             print("")
-            print(" Settings have been updated! Returning to the main menu...")
-            time.sleep(3)
-            intro()
-            options()
+            input(" Press Enter to go back to the main menu...")
     if setting_choice == "2":
         print("")
         set_toggle = input(" Intro Delay - '1' for On, '0' for Off > ")
@@ -189,10 +190,34 @@ def settings():
                     json.dump(data, settings)
                 settings.close()
             print("")
-            print(" Settings have been updated! Returning to the main menu...")
-            time.sleep(3)
-            intro()
-            options()
+            input(" Press Enter to go back to the main menu...")
     if setting_choice == "9":
         intro()
         options()
+
+def check_update():
+
+    terminal_clear()
+
+    try:
+        print("")
+        print(" Checking...")
+        print("")
+        retrieved = requests.get(url)
+        latest_v = retrieved.json()["version"]
+
+        if latest_v == current_v:
+            print(" Kelimax is up-to-date! Current version is " + current_v + " .")
+            print("")
+        else:
+            print(" Kelimax is not up-to-date! Please update Kelimax to have the latest bug fixes/features.")
+            print("")
+            print(" Latest version is " + latest_v +". This version is " + current_v + " .")
+            print("")
+    except:
+        print(" An error occurred. Please check your internet connection and try again.")
+        print("")
+
+    input(" Press Enter to go back to the main menu...")
+    intro()
+    options()
