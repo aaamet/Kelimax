@@ -13,7 +13,7 @@ banner_text = """
 |  ██   ▀██▄  ██▄    ▄  ██   ██   ██    ██    ██ ██   ██   ▄█▀ ▀█▄  |
 |▄████▄   ███▄ ▀█████▀▄████▄████▄████  ████  ████▄████▀██▄██▄   ▄██▄|
 ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"""
-current_v = "v1.2.0"
+current_v = "v1.2.1"
 copyright_text = "Kelimax " + current_v + " Copyright (C) 2022 aaamet"
 opt_1 = "1 - Start The Generator - 1"
 opt_2 = "2 - Settings - 2"
@@ -73,6 +73,11 @@ def options():
     print(opt_2.center(shutil.get_terminal_size().columns))
     print(opt_3.center(shutil.get_terminal_size().columns))
     print(opt_4.center(shutil.get_terminal_size().columns))
+
+def main_menu():
+
+    intro()
+    options()
 
 def tell_about():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -174,7 +179,10 @@ def settings():
                     json.dump(data, settings)
                 settings.close()
             print("")
+            print(" Setting has been updated!")
+            print("")
             input(" Press Enter to go back to the main menu...")
+            main_menu()
     if setting_choice == "2":
         print("")
         set_toggle = input(" Intro Delay - '1' for On, '0' for Off > ")
@@ -190,7 +198,10 @@ def settings():
                     json.dump(data, settings)
                 settings.close()
             print("")
+            print(" Setting has been updated!")
+            print("")
             input(" Press Enter to go back to the main menu...")
+            main_menu()
     if setting_choice == "9":
         intro()
         options()
