@@ -8,4 +8,4 @@ git clone https://github.com/aaamet/Kelimax
 cd Kelimax/
 python3 start.py
 ```
-**Note**: So far, this project has only been tested on Linux, so whether or not this project works on Windows and Mac OS machines is unknown.
+**Note**: This program should work in any machine with Python3 installed, but you may need to install 'requests' module with 'pip install requests'.
