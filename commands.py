@@ -13,41 +13,36 @@ banner_text = """
 |  ██   ▀██▄  ██▄    ▄  ██   ██   ██    ██    ██ ██   ██   ▄█▀ ▀█▄  |
 |▄████▄   ███▄ ▀█████▀▄████▄████▄████  ████  ████▄████▀██▄██▄   ▄██▄|
 ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"""
-current_v = "v1.2.1"
+current_v = "v1.2.2"
 copyright_text = "Kelimax " + current_v + " Copyright (C) 2022 aaamet"
-opt_1 = "1 - Start The Generator - 1"
+opt_1 = "1 - Start - 1"
 opt_2 = "2 - Settings - 2"
 opt_3 = "3 - About - 3"
-opt_4 = "4 - Check For Update - 4"
 url = "https://raw.githubusercontent.com/aaamet/version-list/main/kelimax.json"
+try:
+    retrieved = requests.get(url)
+    latest_v = retrieved.json()["version"]
+except:
+    latest_v = current_v
+update = f"(Update available. Latest version: {latest_v})"
 
 def terminal_clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-class banner():
-
-    def banner_centered():
-        print("")
-        print(center_wrap(banner_text, shutil.get_terminal_size().columns))
-
-    def banner_yclean():
-        terminal_clear()
-        banner_centered()
-        print("")
-        copyright_text_centered()
-        print("")
-
-    def banner_nclean():
-        banner_centered()
-        print("")
-        copyright_text_centered()
-        print("")
+def banner_centered():
+    print("")
+    print(center_wrap(banner_text, shutil.get_terminal_size().columns))
 
 def copyright_text_centered():
     print("")
     print(copyright_text.center(shutil.get_terminal_size().columns))
 
-def intro():
+def update_check():
+    if latest_v != current_v:
+        print("")
+        print(center_wrap(update, shutil.get_terminal_size().columns))
+
+def intro(d_cancel):
 
     with open("config.json", "r") as settings:
         data = json.load(settings)
@@ -60,10 +55,14 @@ def intro():
         intro_delay = "Off"
         intro_delay_time = 0
 
+    if d_cancel == 1:
+        intro_delay_time = 0
+
     terminal_clear()
-    banner.banner_centered()
+    banner_centered()
     time.sleep(intro_delay_time)
     copyright_text_centered()
+    update_check()
     time.sleep(intro_delay_time)
 
 def options():
@@ -72,17 +71,16 @@ def options():
     print(opt_1.center(shutil.get_terminal_size().columns))
     print(opt_2.center(shutil.get_terminal_size().columns))
     print(opt_3.center(shutil.get_terminal_size().columns))
-    print(opt_4.center(shutil.get_terminal_size().columns))
 
 def main_menu():
 
-    intro()
+    intro(0)
     options()
 
 def tell_about():
     os.system('cls' if os.name == 'nt' else 'clear')
     print("")
-    print(" Kelimax "" Copyright (C) 2022 aaamet")
+    print(" Kelimax Copyright (C) 2022 aaamet")
     print("")
     print(" Kelimax is a word list generator that outputs a list of")
     print(" combinations with the given characters.")
@@ -104,6 +102,7 @@ def start_generator():
     characters = input(" Characters > ")
     min_length = int(input(" Minimum Length > "))
     max_length = int(input(" Maximum Length > "))
+    print("")
 
     output_file = open("output.txt", "w")
 
@@ -112,8 +111,7 @@ def start_generator():
     settings.close()
 
     print(" Processing...")
-
-
+    print("")
 
     if data["p_bar"] == True:
         for i in tqdm(range(1), desc=" Progress"):
@@ -129,7 +127,7 @@ def start_generator():
     time.sleep(1)
     output_file.close()
     terminal_clear()
-    banner.banner_centered()
+    banner_centered()
     copyright_text_centered()
     options()
 
@@ -154,9 +152,9 @@ def settings():
         intro_delay_time = 0
 
     print("")
-    print(" 1 - Progress Bar (Current position: " + p_bar + ")")
+    print(" 1 - Progress Bar (Currently: " + p_bar + ")")
     print("")
-    print(" 2 - Intro Delay (Delay between lines of text appearing) (Current position: " + intro_delay + ")")
+    print(" 2 - Intro Delay (Delay between lines of text appearing) (Currently: " + intro_delay + ")")
     print("")
     print(" 9 - Go back to main menu.")
     print("")
@@ -203,32 +201,5 @@ def settings():
             input(" Press Enter to go back to the main menu...")
             main_menu()
     if setting_choice == "9":
-        intro()
+        intro(0)
         options()
-
-def check_update():
-
-    terminal_clear()
-
-    try:
-        print("")
-        print(" Checking...")
-        print("")
-        retrieved = requests.get(url)
-        latest_v = retrieved.json()["version"]
-
-        if latest_v == current_v:
-            print(" Kelimax is up-to-date! Current version is " + current_v + " .")
-            print("")
-        else:
-            print(" Kelimax is not up-to-date! Please update Kelimax to have the latest bug fixes/features.")
-            print("")
-            print(" Latest version is " + latest_v +". This version is " + current_v + " .")
-            print("")
-    except:
-        print(" An error occurred. Please check your internet connection and try again.")
-        print("")
-
-    input(" Press Enter to go back to the main menu...")
-    intro()
-    options()
