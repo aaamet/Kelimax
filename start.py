@@ -21,7 +21,6 @@ while i < 1:
         commands.options()
     else:
         c += 1
-        print(c)
         print("Please enter a valid option.")
         if c == 10:
             commands.intro(1)
